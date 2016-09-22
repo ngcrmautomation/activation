@@ -24,6 +24,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.JavascriptExecutor;
 
 /** 
  * Class Aktivacka automatically goes through activation process based on 
@@ -70,7 +71,7 @@ public class Aktivacka {
             if(pageTemplate.getAttribute("value").equalsIgnoreCase("order_confirmation")){break;};   
             
             try {driver.findElement(By.partialLinkText(executeButton(pageTemplate.getAttribute("value"), testParameters))).click(); } catch (NoSuchElementException e) {break;} 
-            System.out.println("ORDER: "+testParameters.get("OrderId"));
+            System.out.println("ORDER: "+testParameters.get("orderId"));
             Thread.sleep(500);       
         }
 
@@ -640,9 +641,18 @@ public class Aktivacka {
 
         /* MUSIME VOSALIT NEJAK*/
         try {
+            /*
+            driver.findElement(By.cssSelector("a[id='inputNationality-button']"));
+            WebElement element = driver.findElement(By.xpath("//*[@id=\"inputNationality-button\"]/span[1]"));
+            ((JavascriptExecutor)driver).executeScript("arguments[0].innerText ='Česká republika'", element);
+            //* POTREBUJEM VYMYSLET JAK TRIGROVAT onchange na tomto elementu 
+            ((JavascriptExecutor)driver).executeScript("document.getElementById('inputNationality-button').onchange();");
+            */
+            
             driver.findElement(By.cssSelector("a[id='inputNationality-button']")).click();
             driver.findElement(By.cssSelector("a[id='inputNationality-button']")).sendKeys(Keys.ARROW_DOWN);
             driver.findElement(By.cssSelector("a[id='inputNationality-button']")).sendKeys(Keys.ENTER);
+           
         } catch (NoSuchElementException e) {} 
 
         try {driver.findElement(By.id("inputIdentificationNumber")).sendKeys(getParameter("inputIdentificationNumber", paramMap)); } catch (NoSuchElementException e) {} 
