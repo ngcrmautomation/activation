@@ -73,7 +73,7 @@ public class Aktivacka {
             System.out.println("ORDER: "+testParameters.get("OrderId"));
             Thread.sleep(500);       
         }
-        
+        //AAA
         
         /*
         testResult += ocvCheckVas( "SUB2000", "subscriber_id", null , testParameters);
